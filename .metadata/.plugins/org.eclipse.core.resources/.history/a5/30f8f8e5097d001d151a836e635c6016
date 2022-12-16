@@ -1,0 +1,40 @@
+package ch09;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class StudentDAO {
+	Connection conn = null; // Connection : 데이터베이스 연결담당.
+	PreparedStatement pstmt; // 쿼리문의 실행을 담당한다.
+	
+	// jdbc: 자바하고 DB를 연결해주는 api -> ojbcd6.jar
+	final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
+	final String JDBC_URL= "jdbc:oracle:thin:@localhost:1521:xe";
+	
+	// DB 연결 메소드
+	public void open() {
+		try {
+			Class.forName(JDBC_DRIVER); // 드라이버 로드
+			conn = DriverManager.getConnection(JDBC_URL, "test", "test1234"); // DB 연결
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// DB닫는 메소드
+	public void close() {
+		try {
+			//★ pstmt, conn은 리소스(데이터를 읽고 쓰는 객체) 이므로 사용 후 반드시 닫아야 함.
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 학생 정보를 다 불러온다.
+	// 학생 정보를 입력.
+	
+}

@@ -1,0 +1,19 @@
+package ch08;
+
+import java.util.HashMap;
+import java.util.Map;
+
+// 데이터 샘플을 제공해주는 클래스
+public class ProductService {
+	Map<String, Product> products = new HashMap<>();
+	public ProductService() {
+		Product p = new Product("101", "아이폰12", "애플", 1200000, "2020.12.12");
+		products.put("101", p);
+		
+		p = new Product("102", "갤럭시20", "삼성", 1300000, "2020.2.2");
+		products.put("102", p);
+		
+		p = new Product("103", "엘지듀얼폰", "엘지", 1500000, "2020.3.12");
+		products.put("103", p);
+	}
+}

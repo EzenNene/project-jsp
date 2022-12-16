@@ -1,0 +1,39 @@
+package ch07.com.dao;
+
+public class Member {
+
+	private String email;
+	private String number;
+	
+	
+		//이메일 정규식
+		public static final String pattern1 = "\\w+@\\w+\\.\\w+(\\.\\w+)?";
+		  
+		//전화번호 정규식
+		public static final String pattern2 = "(02|010)-\\d{3,4}-\\d{4}";
+
+		
+	public void result() {
+		System.out.println("환영합니다");
+	}
+	
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	
+	
+	
+}

@@ -1,0 +1,13 @@
+package ch07.com.dao;
+
+public class Member {
+
+	public void result() {
+		if() {
+			System.out.println("환영합니다");
+		} else {
+			System.out.println("유효성 검사에 통과하지 못했습니다.");
+		}
+	}
+	
+}
