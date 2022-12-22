@@ -57,7 +57,9 @@ public class VoteController extends HttpServlet {
 		case "/search":
 			site = vote.search(request, response);
 			break;
-
+		case "/result":
+			site = vote.result(request, response);
+			break;
 		}
 		
 		getServletContext().getRequestDispatcher("/" + site).forward(request, response);

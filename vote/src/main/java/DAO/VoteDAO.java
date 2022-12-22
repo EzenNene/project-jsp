@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import DTO.Member;
 import DTO.Party;
+import DTO.Vote;
 
 public class VoteDAO {
 
@@ -42,7 +43,7 @@ public class VoteDAO {
 
 		try {
 			conn = getConnection(); // DB연결
-			String sql = "insert into tbl_vote_202005 values(?,?,?,to_time(?, 'hh:mm'),?,?)";
+			String sql = "insert into tbl_vote_202005 values(?,?,?,?,?,?)";
 			
 			ps = conn.prepareStatement(sql); // sql문을 DB에 전달
 			ps.setString(1, v_jumin); // setString (인덱스, 필드에 저장할 데이터값)
@@ -69,7 +70,7 @@ public class VoteDAO {
 	}
 
 	// 후보조회
-	public String search(HttpServletRequest request, HttpServletResponse responsea) {
+	public String search(HttpServletRequest request, HttpServletResponse response) {
 		ArrayList<Member> list = new ArrayList<Member>();
 		try {
 			conn = getConnection();
@@ -77,10 +78,10 @@ public class VoteDAO {
 			String sql = "SELECT M.m_no, M.m_name, P.p_name, DECODE (M.p_school, '1', '고졸', '2', '학사', '3', '석사', '4', '박사') p_school, ";
 			sql += "substr(M.m_jumin,1,6)||'-'||substr(M.m_jumin,7) m_jumin, ";
 			sql += "M.m_city, substr(P.p_tel1,1,2)||'-'||P.p_tel2||'-'||(substr(P.p_tel3,4)||substr(P.p_tel3,4)||substr(P.p_tel3,4)||substr(P.p_tel3,4)) p_tel ";
-			sql += "FROM tbl_member_202005 M, tbl_party_202005 P;";
+			sql += "FROM tbl_member_202005 M, tbl_party_202005 P where M.p_code = P.p_code";
 			
-			ps = conn.prepareStatement(sql);
-			rs = ps.executeQuery();
+			ps = conn.prepareStatement(sql); // DB에 sql(select 구문) 전달
+			rs = ps.executeQuery();	// select 구문 실행
 			
 			/*
 			 * ResultSet 객체는 커서(Cursor)를 갖고 있는데, 
@@ -115,4 +116,53 @@ public class VoteDAO {
 		return "search.jsp";
 	}
 
+	// 투표자조회
+		public String result(HttpServletRequest request, HttpServletResponse response) {
+			ArrayList<Vote> list = new ArrayList<Vote>();
+			try {
+				conn = getConnection(); 
+				// 후보자 리스트 가져오기
+				String sql = "SELECT V.v_name, '19'||SUBSTR(V.v_jumin,1,2)||'년'||SUBSTR(V.v_jumin,3,2)||'월'||SUBSTR(V.v_jumin,5,2)||'일', ";
+				sql += "'만 '||(TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY'))-TO_NUMBER('19'||SUBSTR(V.v_jumin,1,2)))||'세', DECODE((SUBSTR(V.v_jumin,7,1)), '1', '남', '2', '여')v_jumin, ";
+				sql += "M.m_no, CONCAT(SUBSTR(V.v_time, 1, 2),':',SUBSTR(V.v_time,3,4)), V.v_confirm ";
+				sql += "FROM tbl_vote_202005 V, tbl_member_202005 M where V.m_no = M.m_no";
+				
+				
+				
+				ps = conn.prepareStatement(sql); // DB에 sql(select 구문) 전달
+				rs = ps.executeQuery();	// select 구문 실행
+				
+				/*
+				 * ResultSet 객체는 커서(Cursor)를 갖고 있는데, 
+				 * 이를 통해 특정 행에 대한 참조를 조작할 수 있다. 
+				 * 커서는 초기에는 첫번째 행의 직전을 가리키며, 
+				 * next() 메소드를 사용하여 다음 위치로 커서를 옮길 수 있다. 
+				 */
+
+				while (rs.next()) {
+					Vote vote= new Vote();
+
+					vote.setV_name(rs.getString(1));
+					vote.setV_birth(rs.getString(2));
+					vote.setV_age(rs.getString(3));
+					vote.setV_gender(rs.getString(4));
+					vote.setM_no(rs.getString(5));
+					vote.setV_time(rs.getString(6));
+					vote.setV_confirm(rs.getString(7));
+					
+					list.add(vote);
+				}
+				
+				request.setAttribute("list", list);
+				
+				conn.close();
+				ps.close();
+				rs.close();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return "result.jsp";
+		}
+	
 }

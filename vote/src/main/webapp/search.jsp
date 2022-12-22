@@ -14,7 +14,7 @@ list = (ArrayList<Member>)request.getAttribute("list");
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style2.css">
 </head>
 <body>
 	<%@ include file="header.jsp"%>

@@ -8,7 +8,8 @@ request.setCharacterEncoding("UTF-8");
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style2.css">
+<script type="text/javascript" src="script2.js"></script>
 </head>
 <body>
 	<%@ include file="header.jsp"%>
@@ -28,7 +29,13 @@ request.setCharacterEncoding("UTF-8");
 					</tr>
 					<tr>
 						<th>투표번호</th>
-						<td><input type="text" name="m_no"></td>
+						<td><select name="m_no">
+								<option value="1" name="m_no">[1]김후보</option>
+								<option value="2" name="m_no">[2]이후보</option>
+								<option value="3" name="m_no">[3]박후보</option>
+								<option value="4" name="m_no">[4]조후보</option>
+								<option value="5" name="m_no">[5]최후보</option>
+						</select></td>
 					</tr>
 					<tr>
 						<th>투표시간</th>
@@ -40,18 +47,16 @@ request.setCharacterEncoding("UTF-8");
 					</tr>
 					<tr>
 						<th>유권자확인</th>
-						<td>
-							<input type="radio" name="v_confirm">확인
-							<input type="radio" name="v_confirm">미확인
-						</td>
-						
+						<td><input type="radio" value="Y" name="v_confirm">확인 
+						<input type="radio" value="N" name="v_confirm">미확인</td>
 					</tr>
 
 					<tr>
 						<td colspan="2">
 							<button class="btn" type="submit"
 								onclick="fn_submit(); return false;">투표하기</button>
-							<button class="btn" type="button" onclick="location='list'">다시하기</button>
+							<button class="btn" type="reset" 
+								onclick="btn(); location='vote' return false;">다시하기</button>
 						</td>
 					</tr>
 				</table>
