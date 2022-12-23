@@ -9,6 +9,7 @@ public class Member {
 	String m_jumin;
 	String m_city;
 	String p_tel;
+	int m_vote;
 	
 	public String getM_no() {
 		return m_no;
@@ -53,6 +54,14 @@ public class Member {
 	}
 	public void setP_tel(String p_tel) {
 		this.p_tel = p_tel;
+	}
+	
+	
+	public int getM_vote() {
+		return m_vote;
+	}
+	public void setM_vote(int m_vote) {
+		this.m_vote = m_vote;
 	}
 	
 	

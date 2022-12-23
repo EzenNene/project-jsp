@@ -124,7 +124,7 @@ public class VoteDAO {
 				// 후보자 리스트 가져오기
 				String sql = "SELECT V.v_name, '19'||SUBSTR(V.v_jumin,1,2)||'년'||SUBSTR(V.v_jumin,3,2)||'월'||SUBSTR(V.v_jumin,5,2)||'일', ";
 				sql += "'만 '||(TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY'))-TO_NUMBER('19'||SUBSTR(V.v_jumin,1,2)))||'세', DECODE((SUBSTR(V.v_jumin,7,1)), '1', '남', '2', '여')v_jumin, ";
-				sql += "M.m_no, CONCAT(SUBSTR(V.v_time, 1, 2),':',SUBSTR(V.v_time,3,4)), V.v_confirm ";
+				sql += "M.m_no, SUBSTR(V.v_time, 1, 2)||':'||SUBSTR(V.v_time,3,4), DECODE(V.v_confirm, 'Y', '확인', 'N', '미확인')v_confirm ";
 				sql += "FROM tbl_vote_202005 V, tbl_member_202005 M where V.m_no = M.m_no";
 				
 				
@@ -164,5 +164,47 @@ public class VoteDAO {
 			}
 			return "result.jsp";
 		}
+		
+		// 랭크출력
+				public String rank(HttpServletRequest request, HttpServletResponse response) {
+					ArrayList<Member> list = new ArrayList<Member>();
+					try {
+						conn = getConnection(); 
+						// 후보자 리스트 가져오기
+						String sql = " SELECT M.m_no, M.m_name, COUNT(V.m_no) FROM tbl_member_202005 M, tbl_vote_202005 V ";
+						sql += "where M.m_no = V.m_no GROUP BY M.m_no ,M.m_name ";
+						sql += "ORDER BY COUNT(V.m_no) DESC";
+						
+						ps = conn.prepareStatement(sql); // DB에 sql(select 구문) 전달
+						rs = ps.executeQuery();	// select 구문 실행
+						
+						/*
+						 * ResultSet 객체는 커서(Cursor)를 갖고 있는데, 
+						 * 이를 통해 특정 행에 대한 참조를 조작할 수 있다. 
+						 * 커서는 초기에는 첫번째 행의 직전을 가리키며, 
+						 * next() 메소드를 사용하여 다음 위치로 커서를 옮길 수 있다. 
+						 */
+
+						while (rs.next()) {
+							Member member= new Member();
+
+							member.setM_no(rs.getString(1));
+							member.setM_name(rs.getString(2));
+							member.setM_vote(Integer.parseInt(rs.getString(3)));
+							
+							list.add(member);
+						}
+						
+						request.setAttribute("list", list);
+						
+						conn.close();
+						ps.close();
+						rs.close();
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return "rank.jsp";
+				}
 	
 }

@@ -56,7 +56,7 @@ request.setCharacterEncoding("UTF-8");
 							<button class="btn" type="submit"
 								onclick="fn_submit(); return false;">투표하기</button>
 							<button class="btn" type="reset" 
-								onclick="btn(); location='vote' return false;">다시하기</button>
+								onclick="btn(); location='vote'">다시하기</button>
 						</td>
 					</tr>
 				</table>
