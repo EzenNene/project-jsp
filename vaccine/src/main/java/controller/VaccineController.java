@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.VaccineDAO;
+
 @WebServlet("/VaccineController")
 public class VaccineController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,7 +30,26 @@ public class VaccineController extends HttpServlet {
 		String context = request.getContextPath();
 		String command = request.getServletPath();
 		String site = null;
+	
+		VaccineDAO vaccine = new VaccineDAO();
+		
+		switch(command) {
+		case "/home" :
+			site = "index.jsp";
+			break;
+		case "/reserv" :
+			site = vaccine.reserv(request, response);
+			break;
+		}
+		
+		getServletContext().getRequestDispatcher("/" + site).forward(request, response);
+		
+		
 		
 	}
+	
+
+	
+	
 	
 }
