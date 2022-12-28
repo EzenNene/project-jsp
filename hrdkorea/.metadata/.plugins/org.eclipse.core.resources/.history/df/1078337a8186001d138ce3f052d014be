@@ -1,0 +1,79 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import DTO.Photographer;
+
+public class PhotoDAO {
+	final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
+	final String JDBC_URL = "jdbc:oracle:thin:@localhost:1521:xe";
+
+	public Connection open() {
+		Connection conn = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(JDBC_URL, "photo", "photo1234");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return conn; // 데이터 베이스의 연결 객체를 리턴
+	}
+	
+	
+	// 포토그래퍼 리스트 조회
+	
+	public ArrayList<Photographer> searchListPhotographer() {
+		Connection conn
+		ArrayList<Photographer> list = new ArrayList<Photographer>();
+		try {
+			conn = getConnection(); // DB에 있는 포토그래퍼 정보 불러오기 위해 DB에 연결
+
+			// 포토그래퍼 리스트 가져오기
+			String sql = "SELECT * FROM photographer";
+			// sql += "";
+
+			ps = conn.prepareStatement(sql); // DB에 sql(select 구문) 전달
+			rs = ps.executeQuery(); // select 구문 실행
+
+			/*
+			 * ResultSet 객체는 커서(Cursor)를 갖고 있는데, 
+			 * 이를 통해 특정 행에 대한 참조를 조작할 수 있다. 
+			 * 커서는 초기에는 첫번째 행의 직전을 가리키며, 
+			 * next() 메소드를 사용하여 다음 위치로 커서를 옮길 수 있다. 
+			 */
+
+			// 위에서 생성한 포토그래퍼 리스트에, 포토그래퍼 클래스(DTO)를 바탕으로 
+			// 객체 생성 후 select 구문의 앞부터 차례로 객체에 정보를 넣어준다,
+			// 포토그래퍼 리스트에 셀렉트문 정보를 담고있는 객체를 넣는다
+
+			while (rs.next()) {
+				Photographer photographer = new Photographer();
+
+				photographer.setP_id(rs.getInt(1));
+				photographer.setP_name(rs.getString(2));
+
+				list.add(photographer);
+			}
+
+			request.setAttribute("list", list);
+
+			// DB 닫아주기
+			conn.close();
+			ps.close();
+			rs.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "searchListPhotographer.jsp";
+	}
+
+}

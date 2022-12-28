@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table class="title">
+		<tr>
+			<th>접종예약번호</th>
+
+		</tr>
+		<tr>
+			<td>주민번호</td>
+	
+		</tr>
+		<tr>
+			<td>백신코드</td>
+	
+		</tr>
+		<tr>
+			<td>병원코드</td>
+	
+		</tr>
+		<tr>
+			<td>예약일자</td>
+	
+		</tr>		
+		<tr>
+			<td>예약시간</td>
+	
+		</tr>
+		
+	</table>
+</body>
+</html>

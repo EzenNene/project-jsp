@@ -1,0 +1,51 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import DTO.Photographer;
+
+public class PhotoDAO {
+	final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
+	final String JDBC_URL = "jdbc:oracle:thin:@localhost:1521:xe";
+
+	public Connection open() {
+		Connection conn = null;
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(JDBC_URL, "photo", "photo1234");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return conn; // 데이터 베이스의 연결 객체를 리턴
+	}
+
+	// 포토그래퍼 리스트 조회
+
+	public ArrayList<Photographer> getList() throws Exception {
+		Connection conn = open();
+		ArrayList<Photographer> photographerList = new ArrayList<>();
+
+		String sql = "SELECT p_id, p_name FROM photographer";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+
+		try (conn; pstmt; rs) {
+			while (rs.next()) {
+				Photographer p = new Photographer();
+				p.setP_id(rs.getInt(1));
+				p.setP_name(rs.getString(2));
+
+				photographerList.add(p);
+			}
+			return photographerList;
+		}
+
+	}
+
+}

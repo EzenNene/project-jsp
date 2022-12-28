@@ -1,0 +1,13 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class PhotoDAO {
+
+	Connection conn = null; // DB와 연결 하기 위한 객체
+	PreparedStatement ps = null; // 매개변수가 포함된 sql문을 DB에 전달하기 위한 객체
+	ResultSet rs = null; // select 문을 사용한 쿼리 성공시 결과물로 반환하기위한 객체
+	
+}

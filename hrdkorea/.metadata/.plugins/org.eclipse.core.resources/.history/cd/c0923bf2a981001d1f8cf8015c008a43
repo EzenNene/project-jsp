@@ -1,0 +1,37 @@
+function fn_submit() {
+	var fn = document.frm;
+
+	if (fn.custname.value == "") { // 인풋창 빈값인지 체크
+		alert("주민번호가 입력되지 않았습니다.");
+		fn.custname.focus(); // 포커싱주기
+		return false; // 함수 끝내기
+	}
+	if (fn.phone.value == "") { // 인풋창 빈값인지 체크
+		alert("성명이 입력되지 않았습니다.");
+		fn.phone.focus(); // 포커싱주기
+		return false; // 함수 끝내기
+	}
+	if (fn.address.value == "") { // 인풋창 빈값인지 체크
+		alert("후보번호가 선택되지 않았습니다.");
+		fn.address.focus(); // 포커싱주기
+		return false; // 함수 끝내기
+	}
+	if (fn.joindate.value == "") { // 인풋창 빈값인지 체크
+		alert("투표시간이 입력되지 않았습니다.");
+		fn.joindate.focus(); // 포커싱주기
+		return false; // 함수 끝내기
+	}
+	if (fn.grade.value == "") { // 인풋창 빈값인지 체크
+		alert("투표장소가 입력되지 않았습니다.");
+		fn.grade.focus(); // 포커싱주기
+		return false; // 함수 끝내기
+	}
+	if (fn.city.value == "") { // 인풋창 빈값인지 체크
+		alert("유권자확인이 선택되지 않았습니다.");
+		fn.city.focus(); // 포커싱주기
+		return false; // 함수 끝내기
+	}
+
+	fn.submit(); // 컨트롤러(서버)에 전송
+
+}

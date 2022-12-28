@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<%@ include file="header.jsp"%>
+	<%@ include file="nav.jsp"%>
+	<div class="boxContainer">
+		<div><a href=></a>1</div>
+		<div><a href=></a>2</div>
+		<div><a href=></a>3</div>
+		<div><a href=></a>4</div>
+	</div>
+</body>
+</html>

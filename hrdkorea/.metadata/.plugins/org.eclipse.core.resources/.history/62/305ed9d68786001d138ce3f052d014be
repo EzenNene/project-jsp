@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Insert title here</title>
+<link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+	<div class="wrap">
+		<%@ include file="header.jsp"%>
+		<%@ include file="nav.jsp"%>
+		<div class="boxContainer">
+
+			<c:forEach var="photographer" items="${photographerList}" varStatus="status">
+				<div class="card">${photographer.p_id}
+					<div>
+						<a href="./portfolio?p_id=${photographer.p_id}">${photographer.p_name}</a>
+					</div>
+				</div>
+			</c:forEach>
+
+			<div class="card">
+				1
+				<div class="cardImg">image</div>
+			</div>
+			<div class="card">
+				2
+				<div class="cardImg">image</div>
+			</div>
+			<div class="card">
+				3
+				<div class="cardImg">image</div>
+			</div>
+			<div class="card">
+				4
+				<div class="cardImg">image</div>
+			</div>
+
+		</div>
+		<script type="text/javascript" src="./script.js"></script>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+package DTO;
+
+public class Hosp {
+	String hospcode;
+	String 
+}
+
+
+create table tbl_hosp_202108(
+hospcode char(4) primary key,
+hospname varchar2 (10),
+hosptel varchar2 (10),
+hospaddr varchar2 (10)
+);
