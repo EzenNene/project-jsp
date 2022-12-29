@@ -12,17 +12,28 @@
 	<div class="wrap">
 		<%@ include file="header.jsp"%>
 		<%@ include file="nav.jsp"%>
+
 		<div class="boxContainer">
 
 			<c:forEach var="photographer" items="${photographerList}" varStatus="status">
-				<div class="card">${photographer.p_id}
-					<div>
-						<a href="./portfolio?p_id=${photographer.p_id}">${photographer.p_name}</a>
+				<div class="card">
+
+					<div class="card_Img">
+						<a href="./portfolio?p_id=${photographer.p_id}">
+							<img alt="${photographer.p_id}" src=" ${photographer.p_img}">
+						</a>
 					</div>
+
+					<div class="card_info">
+						<span>${photographer.p_name}</span>
+						<span>${photographer.p_intro}</span>
+					</div>
+
 				</div>
 			</c:forEach>
 
 		</div>
+
 		<script type="text/javascript" src="./script.js"></script>
 
 	</div>

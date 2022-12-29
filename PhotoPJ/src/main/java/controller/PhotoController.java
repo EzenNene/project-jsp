@@ -21,11 +21,12 @@ public class PhotoController extends HttpServlet {
 	private ServletContext ctx;
 
 	@Override
+	// init 서블릿 객체 생성 시 한번만 실행
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 
 		dao = new PhotoDAO();
-		ctx = getServletContext();
+		ctx = getServletContext(); // 웹 어플리케이션 자원관리 (로그인 유지)
 	}
 
 	public PhotoController() {
@@ -52,6 +53,12 @@ public class PhotoController extends HttpServlet {
 		case "/list":
 			site = getList(request);
 			break;
+		case "/portfolio":
+			site = getPortfolio(request);
+			break;
+		case "/reserv":
+			site = reservPage(request);
+			break;
 		}
 
 		if (site.startsWith("redirect:/")) { // redirect
@@ -63,8 +70,6 @@ public class PhotoController extends HttpServlet {
 		} else { // forward
 			ctx.getRequestDispatcher("/" + site).forward(request, response);			
 		}
-		
-	
 		
 	}
 
@@ -81,6 +86,56 @@ public class PhotoController extends HttpServlet {
 		return "list.jsp";
 	}
 
+	public String getPortfolio(HttpServletRequest request) {
+		
+		int p_id = Integer.parseInt(request.getParameter("p_id"));
+		
+		try {
+			Photographer p = dao.getPortfolio(p_id);
+			request.setAttribute("photographer", p);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("포토그래퍼 포트폴리오 불러오는 과정에서 문제발생");
+			request.setAttribute("error", "포토그래퍼 포트폴리오가 정상적으로 처리되지 않음");
+		}
+		return "portfolio.jsp";
+	}
+	
+	public String reservPage(HttpServletRequest request) {
+		
+		int p_id = Integer.parseInt(request.getParameter("p_id"));
+		
+		try {
+			Photographer p = dao.getPortfolio(p_id);
+			request.setAttribute("photographer", p);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("포토그래퍼 예약페이지 불러오는 과정에서 문제발생");
+			request.setAttribute("error", "포토그래퍼 예약페이지가 정상적으로 처리되지 않음");
+		}
+		return "reserv.jsp";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
 

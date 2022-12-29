@@ -1,4 +1,21 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;900&display=swap');
+
+header {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 900;
+}
+
+span {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;
+}
+
+a {
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;
+}
+/* =========================================================================== */
 
 * {
 	margin: 0;
@@ -13,7 +30,6 @@ a {
 a:hover {
 	cursor: pointer;	
 }
-
 
 header {
 	top: 0;
@@ -33,14 +49,26 @@ nav {
 	background: #CCABAB;
 }
 
+nav ul {
+	margin-left: 20px;
+	list-style: none;
+}
+
+nav ul li a {	
+	color: white;
+}
+
+/* index (list)================================================================== */
+
 .boxContainer {
 	width: 1000px;
 	height: 1400px;
 	background: #c0c0c0;
 	margin: 0 auto;
 	
-	display: flex;
+	display: flex;	
 	justify-content: center;
+	flex-flow: wrap;
 }
 
 .boxContainer .card {
@@ -48,12 +76,108 @@ nav {
 	height: 300px;
 	background: #CCABAB;
 	margin: 20px;
+	
+	border-radius: 20px
 }
 
-.cardImg {
+.card_Img {
 	width: 200px;
-	height: 100%;
+	height: 300px;
 	background: rgb(128, 128, 255);
-	
 	float: left;
+	border-radius: 20px;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	overflow: hidden;
+	border: 5px solid rgb(128, 128, 255);
+	box-sizing: border-box;
+		
+}
+
+.card_Img img {
+	width: 200px;
+	height: 300px;
+	object-fit: cover;
+
+	border-radius: 20px;
+
+}
+
+.card .card_info {
+	float: right;
+	width: 200px;
+	height: 300px;
+}
+
+/* 포폴 ================================================================ */
+
+.wrap_pf .boxContainer {
+	width: 1000px;
+	height: 1400px;
+	background: #c0c0c0;
+	margin: 0 auto;
+	
+}
+
+.infobox {
+	width: 700px;
+	height: 300px;
+	background: #CCABAB;
+	margin: 0 auto;
+	margin-top: 50px;
+	
+	border-radius: 20px;
+}
+
+.wrap_pf .cardImg {
+	width: 200px;
+	height: 300px;
+	background: rgb(128, 128, 255);
+	float: left;
+	border-radius: 20px;
+
+	overflow: hidden;
+	
+}
+
+.textbox {
+	float: right;
+	width: 500px;
+	height: 300px;
+	position: relative;
+}
+
+.tel_email_loc {
+	position: absolute;
+	bottom: 0;
+}
+
+.wrap_pf span {
+	display: block;
+	padding: 5px;
+}
+
+
+/* 포폴 이미지 ============================================================*/
+
+.pf_images {
+	width: 650px;
+	margin: 0 auto;
+	overflow: hidden;
+	padding-top: 10px;
+}
+
+article {
+	float: left;
+	margin-left: 10px;
+	margin-bottom: 10px;
+}
+
+.pf_images img {
+	width: 200px;
+	height: 380px;
+	object-fit: cover;
 }

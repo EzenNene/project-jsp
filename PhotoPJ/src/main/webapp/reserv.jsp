@@ -9,6 +9,6 @@
 <body>
 	<%@ include file="header.jsp" %>
 	<%@ include file="nav.jsp" %>
-	<%@ include file="calendar.jsp" %>
+	<%@ include file="mycal.jsp" %>
 </body>
 </html>

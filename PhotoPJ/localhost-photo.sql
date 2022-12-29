@@ -19,6 +19,8 @@ INSERT INTO photographer values (p_id_SEQ.nextval , 'ÀÌ¼ø½Å');
 INSERT INTO photographer values (p_id_SEQ.nextval , '±èÃ¶¼ö');
 INSERT INTO photographer values (p_id_SEQ.nextval , '°­ÈñÀç');
 
+ALTER TABLE photographer add img VARCHAR2(4000);
+
 --------------------------------------------------------------------------------
 -- ¸ðµ¨ Å×ÀÌºí
 
