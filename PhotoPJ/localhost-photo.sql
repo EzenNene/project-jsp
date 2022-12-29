@@ -6,6 +6,8 @@ DROP TABLE reserv;
 drop sequence p_id_seq;
 drop sequence r_id_seq;
 
+COMMIT;
+
 --------------------------------------------------------------------------------
 -- 포토그래퍼 테이블
 
@@ -19,8 +21,59 @@ INSERT INTO photographer values (p_id_SEQ.nextval , '이순신');
 INSERT INTO photographer values (p_id_SEQ.nextval , '김철수');
 INSERT INTO photographer values (p_id_SEQ.nextval , '강희재');
 
-ALTER TABLE photographer add img VARCHAR2(4000);
+ALTER TABLE photographer add p_img VARCHAR2(4000);
+ALTER TABLE photographer add p_intro VARCHAR2(400);
+ALTER TABLE photographer add p_phone VARCHAR2(30);
+ALTER TABLE photographer add p_email VARCHAR2(50);
+ALTER TABLE photographer add p_loc VARCHAR2(16);
 
+UPDATE photographer SET p_img = 'https://images.unsplash.com/photo-1672239859305-6e3d40743d42?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1364&q=80'
+WHERE p_name = '홍길동';
+UPDATE photographer SET p_img = 'https://images.unsplash.com/photo-1672197339752-264445be6a45?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80'
+WHERE p_name = '이순신';
+UPDATE photographer SET p_img = 'https://images.unsplash.com/photo-1672237608740-99d1a2404728?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
+WHERE p_name = '김철수';
+UPDATE photographer SET p_img = 'https://images.unsplash.com/photo-1672185972350-0b54a4d3d7d7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80'
+WHERE p_name = '강희재';
+
+UPDATE photographer SET p_intro = '안녕하세요 홍길동입니다'
+WHERE p_name = '홍길동';
+UPDATE photographer SET p_intro = '상업촬영 위주로 하는 이순신입니다'
+WHERE p_name = '이순신';
+UPDATE photographer SET p_intro = '웨딩촬영 전문 김철수입니다'
+WHERE p_name = '김철수';
+UPDATE photographer SET p_intro = '일상 스냅 작가 강희재입니다'
+WHERE p_name = '강희재';
+
+UPDATE photographer SET p_phone = '010-1111-1111'
+WHERE p_name = '홍길동';
+UPDATE photographer SET p_phone = '010-1111-2222'
+WHERE p_name = '이순신';
+UPDATE photographer SET p_phone = '010-1111-3333'
+WHERE p_name = '김철수';
+UPDATE photographer SET p_phone = '010-1111-4444'
+WHERE p_name = '강희재';
+
+UPDATE photographer SET p_email = 'hong@gmail.com'
+WHERE p_name = '홍길동';
+UPDATE photographer SET p_email = 'yee@gmail.com'
+WHERE p_name = '이순신';
+UPDATE photographer SET p_email = 'kim@gamil.com'
+WHERE p_name = '김철수';
+UPDATE photographer SET p_email = 'kang@gmail.com'
+WHERE p_name = '강희재';
+
+UPDATE photographer SET p_loc = '서울/경기'
+WHERE p_name = '홍길동';
+UPDATE photographer SET p_loc = '제주도'
+WHERE p_name = '이순신';
+UPDATE photographer SET p_loc = '강원도'
+WHERE p_name = '김철수';
+UPDATE photographer SET p_loc = '경기'
+WHERE p_name = '강희재';
+
+
+set define off;
 --------------------------------------------------------------------------------
 -- 모델 테이블
 
@@ -67,6 +120,7 @@ TO_DATE('2022-12-29 18:00', 'YYYY-MM-DD HH24:MI'), '스트릿컨셉');
 
 select * from photographer;
 select * from reserv;
+
 commit;
 
 --------------------------------------------------------------------------------
