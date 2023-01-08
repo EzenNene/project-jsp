@@ -33,17 +33,20 @@ public class PhotoController extends HttpServlet {
 		super();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		doPro(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		doPro(request, response);
 	}
 
-	protected void doPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPro(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		String context = request.getContextPath(); // 톰캣의 context path 가져온다 (server.xml 에서 확인)
 		String command = request.getServletPath(); // 경로의 맨 끝 파일명 가져온다
@@ -59,6 +62,9 @@ public class PhotoController extends HttpServlet {
 		case "/reserv":
 			site = reservPage(request);
 			break;
+		case "/reservwrite":
+			site = reservwritePage(request);
+			break;
 		}
 
 		if (site.startsWith("redirect:/")) { // redirect
@@ -68,9 +74,9 @@ public class PhotoController extends HttpServlet {
 			response.sendRedirect(rview);
 
 		} else { // forward
-			ctx.getRequestDispatcher("/" + site).forward(request, response);			
+			ctx.getRequestDispatcher("/" + site).forward(request, response);
 		}
-		
+
 	}
 
 	public String getList(HttpServletRequest request) {
@@ -87,9 +93,9 @@ public class PhotoController extends HttpServlet {
 	}
 
 	public String getPortfolio(HttpServletRequest request) {
-		
+
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
-		
+
 		try {
 			Photographer p = dao.getPortfolio(p_id);
 			request.setAttribute("photographer", p);
@@ -100,11 +106,11 @@ public class PhotoController extends HttpServlet {
 		}
 		return "portfolio.jsp";
 	}
-	
+
 	public String reservPage(HttpServletRequest request) {
-		
+
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
-		
+
 		try {
 			Photographer p = dao.getPortfolio(p_id);
 			request.setAttribute("photographer", p);
@@ -115,27 +121,20 @@ public class PhotoController extends HttpServlet {
 		}
 		return "reserv.jsp";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public String reservwritePage(HttpServletRequest request) {
+
+		int p_id = Integer.parseInt(request.getParameter("p_id"));
+
+		try {
+			Photographer p = dao.getPortfolio(p_id);
+			request.setAttribute("photographer", p);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("포토그래퍼 예약상세페이지 불러오는 과정에서 문제발생");
+			request.setAttribute("error", "포토그래퍼 예약상세페이지가 정상적으로 처리되지 않음");
+		}
+		return "reservwrite.jsp";
+	}
 
 }
-

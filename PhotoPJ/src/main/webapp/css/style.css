@@ -24,7 +24,7 @@ a {
 
 a {
 	text-decoration: none;
-	color: #fff;
+	/* color: #fff; */
 }
 
 a:hover {
@@ -160,6 +160,9 @@ nav ul li a {
 	padding: 5px;
 }
 
+.textbox a {
+	border: 1px solid rgb(128, 128, 255);
+}
 
 /* 포폴 이미지 ============================================================*/
 
@@ -180,4 +183,11 @@ article {
 	width: 200px;
 	height: 380px;
 	object-fit: cover;
+}
+
+/* 예약 페이지 ============================================================*/
+
+form div {
+	margin-top: 50px;
+	text-align: center;
 }

@@ -25,8 +25,7 @@
 					</div>
 
 					<div class="card_info">
-						<span>${photographer.p_name} 작가</span>
-						<span><br></span>
+						<span>${photographer.p_name}</span>
 						<span>${photographer.p_intro}</span>
 					</div>
 

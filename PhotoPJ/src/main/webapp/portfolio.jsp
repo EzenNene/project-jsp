@@ -27,7 +27,7 @@
 						<span>이메일 : ${photographer.p_email}</span>
 						<span>활동지역 : ${photographer.p_loc}</span>					
 					</div>
-					<button>예약하기</button>
+					<a href="./reserv?p_id=${photographer.p_id}">예약하기</a>
 				</div>
 				
 			</div>
