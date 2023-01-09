@@ -20,7 +20,7 @@
 				원하시는 컨셉을 적어주세요</span>
 				<p>
 				<% out.println(request.getParameter("month")); %>월
-				<% out.println(request.getParameter("day")); %>일 예약입니다
+				<% out.println(request.getParameter("i")); %>일 예약입니다
 				</p>
 			</div>
 			<div>

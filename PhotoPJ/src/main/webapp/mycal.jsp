@@ -127,9 +127,13 @@ td.before {
 		<tr>
 			<!-- 이전달 버튼 만들기 -->
 			<th>
-				<%-- <a href ="?year=<%=year%>&month=<%month-1%>">이전 달</a> --%> <input
-				type="button" value="이전 달"
-				onclick="location.href='?year=<%=year%>&month=<%=month - 1%>'">
+				<%-- <a href ="?year=<%=year%>&month=<%month-1%>">이전 달</a> --%> 
+				<form method="get" action='/Photo/reserv'>
+					<input type='text' name='p_id' value='${photographer.p_id}' hidden>
+					<input type='text' name='year' value='<%=year%>' hidden>
+					<input type='text' name='month' value='<%=month-1%>' hidden>
+					<input type="submit" value="이전 달">
+				</form>
 			</th>
 
 			<!-- 제목 만들기 -->
@@ -139,7 +143,7 @@ td.before {
 			<th>
 				<%-- <a href ="?year=<%=year%>&month=<%month+1%>">다음 달</a> --%>
 				<form method="get" action='/Photo/reserv'>
-					<input type='text' name='p_id' value='1' hidden>
+					<input type='text' name='p_id' value='${photographer.p_id}' hidden>
 					<input type='text' name='year' value='<%=year%>' hidden>
 					<input type='text' name='month' value='<%=month+1%>' hidden>
 					<input type="submit" value="다음 달">
@@ -184,7 +188,7 @@ td.before {
 				/* 요일별로 색깔 다르게 해주기위해 td에 class 태그걸어주기 */
 				switch (MyCalendar.weekDay(year, month, i)) {
 				case 0:
-					out.println("<td class ='sun'>" + i + "</td>");
+					out.println("<td class ='sun'>" + "<a href='/Photo/reservwrite?p_id=1&month=1&i=10'>" + i + "</a>" + "</td>");
 					break;
 				case 6:
 					out.println("<td class ='sat'>" + i + "</td>");
