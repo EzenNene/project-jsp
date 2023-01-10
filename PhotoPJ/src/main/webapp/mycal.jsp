@@ -188,13 +188,16 @@ td.before {
 				/* 요일별로 색깔 다르게 해주기위해 td에 class 태그걸어주기 */
 				switch (MyCalendar.weekDay(year, month, i)) {
 				case 0:
-					out.println("<td class ='sun'>" + "<a href='/Photo/reservwrite?p_id=1&month=1&i=10'>" + i + "</a>" + "</td>");
+					String pid1 = request.getParameter("p_id");
+					out.println("<td class ='sun'>" + "<a href='/Photo/reservwrite?p_id="+ pid1 +"&month="+ month +"&i="+ i +"'>" + i + "</a>" + "</td>"); 
 					break;
 				case 6:
-					out.println("<td class ='sat'>" + i + "</td>");
+					String pid2 = request.getParameter("p_id");
+					out.println("<td class ='sat'>" + "<a href='/Photo/reservwrite?p_id="+ pid2 +"&month="+ month +"&i="+ i +"'>" + i + "</a>" + "</td>");
 					break;
 				default:
-					out.println("<td class ='etc'>" + i + "</td>");
+					String pid3 = request.getParameter("p_id");
+					out.println("<td class ='etc'>" + "<a href='/Photo/reservwrite?p_id="+ pid3 +"&month="+ month +"&i="+ i +"'>" + i + "</a>" + "</td>");
 					break;
 				}
 
