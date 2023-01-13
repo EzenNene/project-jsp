@@ -10,6 +10,7 @@ COMMIT;
 
 --------------------------------------------------------------------------------
 -- 포토그래퍼 테이블
+-- 작가고유번호, 이름, 이미지, 소개글, 폰번호, 이메일, 지역
 
 CREATE TABLE photographer (
 p_id NUMBER PRIMARY KEY,
@@ -90,20 +91,18 @@ set define off;
 
 --------------------------------------------------------------------------------
 -- 예약(날짜) 테이블
+-- 예약고유번호, 모델이름, 컨셉
 
 CREATE TABLE reserv (
 
 reserv_id NUMBER PRIMARY KEY,
-p_id NUMBER NOT NULL,
 m_name VARCHAR2(16) NOT NULL,
-m_number VARCHAR2 (50) NOT NULL,
-reserv_date DATE NOT NULL,
 concept VARCHAR2(100) NOT NULL,
 
 CONSTRAINT FK_P_ID FOREIGN KEY(p_id) REFERENCES photographer(p_id)
 );
 
-INSERT INTO RESERV VALUES (r_id_seq.nextval, 1, '김모델', '010-1234-1111', 
+INSERT INTO RESERV VALUES (r_id_seq.nextval, '김모델', '010-1234-1111', 
 TO_DATE('2022-12-29 10:00', 'YYYY-MM-DD HH24:MI'), '카페컨셉');
 INSERT INTO RESERV VALUES (r_id_seq.nextval, 2, '이모델', '010-1234-2222', 
 TO_DATE('2022-12-29 12:00', 'YYYY-MM-DD HH24:MI'), '야외컨셉');

@@ -1,5 +1,6 @@
 package DAO;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,7 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import DTO.Board;
 import DTO.Photographer;
+import DTO.Reserv;
 
 public class PhotoDAO {
 	final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
@@ -79,4 +86,20 @@ public class PhotoDAO {
 		}
 
 	}
+	
+	// 예약페이지 적어내기
+		public void insertBoard(Reserv b) throws Exception {
+			Connection conn = open();
+
+			String sql = "insert into reserv(reserv_id, m_name, m_number, concept) values(r_id_seq.nextval, ?, ?, ?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			try (conn; pstmt) {
+				pstmt.setString(1, b.getM_name());
+				pstmt.setString(2, b.getM_number());
+				pstmt.setString(3, b.getConcept());
+				pstmt.executeUpdate();
+			}
+		}
+
 }

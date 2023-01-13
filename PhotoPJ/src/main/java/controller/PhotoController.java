@@ -65,6 +65,9 @@ public class PhotoController extends HttpServlet {
 		case "/reservwrite":
 			site = reservwritePage(request);
 			break;
+		case "/home":
+			site = sendReserv(request);
+			break;
 		}
 
 		if (site.startsWith("redirect:/")) { // redirect
@@ -137,4 +140,19 @@ public class PhotoController extends HttpServlet {
 		return "reservwrite.jsp";
 	}
 
+	public String sendReserv(HttpServletRequest request) {
+
+		int p_id = Integer.parseInt(request.getParameter("p_id"));
+
+		try {
+			Photographer p = dao.getPortfolio(p_id);
+			request.setAttribute("photographer", p);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("예약하고 홈페이지 불러오는 과정에서 문제발생");
+			request.setAttribute("error", "홈페치지가 정상적으로 처리되지 않음");
+		}
+		return "list.jsp";
+	}
+	
 }
