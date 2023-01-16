@@ -14,7 +14,7 @@
 
 	<div class="boxContainer">
 		<!--  <form action="/Photo/reserv?p_id=${photographer.p_id}" method="get">-->
-		<form action="/home" method="get">
+		<form action="/list" method="get">
 
 			<div>
 				<span>${photographer.p_name} 작가님 촬영 예약 페이지 입니다<br></span>
@@ -24,9 +24,10 @@
 				<span>예약자 성함 : </span>
 				<input type="text" id="name" name="name" required maxlength="8" size="10">
 				<span><br></span>
-				<span>원하시는 컨셉을 적어주세요</span>
 			</div>
 			<div>
+				<span>원하시는 컨셉을 적어주세요</span>
+				<span><br></span>
 				<textarea id="story" name="story" rows="5" cols="33"></textarea>
 				<button type="submit">예약하기</button>
 			</div>

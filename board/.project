@@ -3,11 +3,8 @@
 	<name>board</name>
 	<comment></comment>
 	<projects>
-		<project>commons-logging-1.2</project>
-		<project>commons-beanutils-1.9.4</project>
 		<project>taglibs-standard-impl-1.2.5</project>
 		<project>taglibs-standard-spec-1.2.5</project>
-		<project>commons-collections-3.2.2</project>
 		<project>ojdbc6</project>
 	</projects>
 	<buildSpec>
