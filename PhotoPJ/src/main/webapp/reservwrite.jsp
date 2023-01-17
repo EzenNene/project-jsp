@@ -16,7 +16,7 @@
 		<!--  <form action="/Photo/reserv?p_id=${photographer.p_id}" method="get">-->
 		<!-- <form action="/list" method="get"> -->
 		
-		<form name="frm" action="reservresult" method="post">
+		<form name="frm" action="reservresult" method="get">
 
 			<div>
 				<span>${photographer.p_name} 작가님 촬영 예약 페이지 입니다<br></span>

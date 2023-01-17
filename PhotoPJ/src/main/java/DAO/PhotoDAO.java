@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DTO.Board;
 import DTO.Photographer;
 import DTO.Reserv;
 
@@ -104,24 +105,26 @@ public class PhotoDAO {
 	
 
 		// 예약목록(내용) 가져오기
-		public Reserv getReservList(int reserv_id) throws Exception {
+		public ArrayList<Reserv> getReservList() throws Exception {
 			Connection conn = open();
-			Reserv r = new Reserv();
+			ArrayList<Reserv> reservList = new ArrayList<>(); // Reserv 객체를 저장할 arraylist
 			
 			String sql = "select reserv_id, m_name, concept from reserv order by reserv_id";
 			//String sql = "select reserv_id, m_name, concept from reserv where p_id=1 order by reserv_id";
 
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, reserv_id);
 			ResultSet rs = pstmt.executeQuery();
 
 			try (conn; pstmt; rs) {
 				while (rs.next()) {
+					Reserv r = new Reserv();
 					r.setReserv_id(rs.getInt(1));
 					r.setM_name(rs.getString(2));
 					r.setConcept(rs.getString(3));
+					
+					reservList.add(r);
 				}
-				return r;
+				return reservList;
 			}
 		}
 		

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 
 import DAO.PhotoDAO;
+import DTO.Board;
 import DTO.Photographer;
 import DTO.Reserv;
 
@@ -49,7 +50,9 @@ public class PhotoController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		doPro(request, response);
 	}
-
+	
+//===================================================================================================================
+	
 	protected void doPro(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -57,21 +60,23 @@ public class PhotoController extends HttpServlet {
 		String command = request.getServletPath(); // 경로의 맨 끝 파일명 가져온다
 		String site = null;
 
+		PhotoDAO photo = new PhotoDAO();
+		
 		switch (command) {
 		case "/list":
-			site = getList(request);
+			site = getListPage(request);
 			break;
 		case "/portfolio":
-			site = getPortfolio(request);
+			site = getPortfolioPage(request);
 			break;
 		case "/reserv":
-			site = reservPage(request);
+			site = getReservPage(request);
 			break;
 		case "/reservwrite":
-			site = reservwritePage(request);
+			site = getReservWritePage(request);
 			break;
 		case "/reservresult":
-			site = getReservList(request);
+			site = getReservListPage(request);
 			break;
 		}
 		
@@ -90,7 +95,7 @@ public class PhotoController extends HttpServlet {
 	}
 
 	// 포토그래퍼 리스트 조회
-	public String getList(HttpServletRequest request) {
+	public String getListPage(HttpServletRequest request) {
 		List<Photographer> list;
 		try {
 			list = dao.getList();
@@ -104,7 +109,7 @@ public class PhotoController extends HttpServlet {
 	}
 
 	// 포트폴리오 조회
-	public String getPortfolio(HttpServletRequest request) {
+	public String getPortfolioPage(HttpServletRequest request) {
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
 
 		try {
@@ -119,7 +124,7 @@ public class PhotoController extends HttpServlet {
 	}
 
 	// 예약(달력)페이지
-	public String reservPage(HttpServletRequest request) {
+	public String getReservPage(HttpServletRequest request) {
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
 
 		try {
@@ -134,32 +139,28 @@ public class PhotoController extends HttpServlet {
 	}
 
 	// 예약 내용 적는 페이지
-	public String reservwritePage(HttpServletRequest request) {
-//		
-//		Reserv r = new Reserv();
-//		
-//		try {
-//			BeanUtils.populate(r, request.getParameterMap());
-//			dao.reservwritePage(r);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			ctx.log("추가 과정에서 문제 발생");
-//			try {
-//				//get방식으로 넘겨줄때 한글 깨짐을 방지한다.
-//				String encodeName = URLEncoder.encode("게시물이 정상적으로 등록되지 않았습니다!", "UTF-8");
-//				return "redirect:/reservwrite?error=" + encodeName;
-//			} catch (UnsupportedEncodingException e1) {
-//				e1.printStackTrace();
-//			}
-//		} 
-//		
-//		return "reservwrite.jsp";
-	
-//      return "redirect:/list";
-//		return "/list";
+	public String getReservWritePage(HttpServletRequest request) {
 		
-		
+		Reserv r = new Reserv();
 
+		try {
+			BeanUtils.populate(r, request.getParameterMap());
+			dao.reservwritePage(r);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("포토그래퍼 예약상세페이지 불러오는 과정에서 문제발생");
+			try {
+				//get방식으로 넘겨줄때 한글 깨짐을 방지한다.
+				String encodeName = URLEncoder.encode("게시물이 정상적으로 등록되지 않았습니다!", "UTF-8");
+				return "redirect:/reservwrite?error=" + encodeName;
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return "reservwrite.jsp";
+		// return "reservwrite.jsp";
+		
+		/*
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
 
 		try {
@@ -171,13 +172,29 @@ public class PhotoController extends HttpServlet {
 			request.setAttribute("error", "포토그래퍼 예약상세페이지가 정상적으로 처리되지 않음");
 		}
 		return "reservwrite.jsp";
-		
-
+		*/
       
 	}
 
+	// 예약글 리스트 조회
+		public String getReservListPage(HttpServletRequest request) {
+			List<Reserv> list;
+			
+			try {
+				list = dao.getReservList();
+				request.setAttribute("reservList", list);
+			} catch (Exception e) {
+				e.printStackTrace();
+				ctx.log("게시판 목록 생성 과정에서 문제 발생");
+				//나중에 사용자 한테 에러메세지를 보여주기 위해 저장
+				request.setAttribute("error", "게시판 목록이 정상적으로 처리되지 않았습니다!"); 
+			}
+			
+			return "reservresult.jsp";
+		}
 	
-	public String getReservList(HttpServletRequest request) {
+	/*
+	public String getReservListPage(HttpServletRequest request) {
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
 		String m_name = request.getParameter("m_name");
 		String concept = request.getParameter("concept");
@@ -191,7 +208,7 @@ public class PhotoController extends HttpServlet {
 		}
 		return "reservresult.jsp";
 	}
-	
+	*/
 
 	
 	
