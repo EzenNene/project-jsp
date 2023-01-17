@@ -1,13 +1,12 @@
 package DTO;
 
 public class Board {
-	private int board_no;
-	private String title;
-	private String user_id;
-	private String reg_date;
-	private int views;
-	private String content;
-	
+	private int board_no; //게시물 번호
+	private String title; //게시글 제목
+	private String user_id; //글쓴이
+	private String reg_date; //등록일
+	private int views; //조회수
+	private String content; //내용
 	public int getBoard_no() {
 		return board_no;
 	}

@@ -4,8 +4,8 @@ public class Reserv {
 
 	int reserv_id;
 	String m_name;
-	String m_number;
 	String concept;
+	int p_id;
 	
 	public int getReserv_id() {
 		return reserv_id;
@@ -25,11 +25,11 @@ public class Reserv {
 	public void setConcept(String concept) {
 		this.concept = concept;
 	}
-	public String getM_number() {
-		return m_number;
+	public int getP_id() {
+		return p_id;
 	}
-	public void setM_number(String m_number) {
-		this.m_number = m_number;
+	public void setP_id(int p_id) {
+		this.p_id = p_id;
 	}
 	
 }

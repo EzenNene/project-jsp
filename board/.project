@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>board</name>
+	<name>board2</name>
 	<comment></comment>
 	<projects>
-		<project>taglibs-standard-impl-1.2.5</project>
-		<project>taglibs-standard-spec-1.2.5</project>
-		<project>ojdbc6</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -1,12 +1,12 @@
 function chkForm(){
 	var f = document.frm; // form 태그
 	
-	if(f.title.value == '') {
+	if(f.m_name.value == '') {
 		alert("제목을 입력해주세요");
 		return false;
 	}
 	
-		if(f.user_id.value == '') {
+		if(f.concept.value == '') {
 		alert("아이디을 입력해주세요");
 		return false;
 	}

@@ -14,7 +14,9 @@
 
 	<div class="boxContainer">
 		<!--  <form action="/Photo/reserv?p_id=${photographer.p_id}" method="get">-->
-		<form action="/list" method="get">
+		<!-- <form action="/list" method="get"> -->
+		
+		<form name="frm" action="reservresult" method="post">
 
 			<div>
 				<span>${photographer.p_name} 작가님 촬영 예약 페이지 입니다<br></span>
@@ -22,18 +24,28 @@
 				<% out.println(request.getParameter("i")); %>일 예약입니다
 				<span><br></span>
 				<span>예약자 성함 : </span>
-				<input type="text" id="name" name="name" required maxlength="8" size="10">
+				<input type="text" name="m_name" required maxlength="8" size="10">
 				<span><br></span>
 			</div>
+			
 			<div>
 				<span>원하시는 컨셉을 적어주세요</span>
 				<span><br></span>
-				<textarea id="story" name="story" rows="5" cols="33"></textarea>
-				<button type="submit">예약하기</button>
+				<textarea id="concept" name="concept" rows="5" cols="33" placeholder="원하시는 컨셉을 적어주세요"></textarea>
 			</div>
+			
+		<div class="bt_wrap">
+         	<a onclick="chkForm(); return false;" class="on">등록</a>
+          	<a href="list">취소</a>
+        </div>
 		</form>
-
+		
 	</div>
-
+	<script>
+	  <c:if test="${error != null}">
+	    alert("${error}");
+	  </c:if>
+	</script>
+	<script type="text/javascript" src="./script.js"></script>
 </body>
 </html>

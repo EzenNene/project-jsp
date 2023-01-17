@@ -28,6 +28,7 @@
 						<span>활동지역 : ${photographer.p_loc}</span>					
 					</div>
 					<a href="./reserv?p_id=${photographer.p_id}">예약하기</a>
+					<a href="./reservresult?p_id=${photographer.p_id}">예약목록</a>
 				</div>
 				
 			</div>

@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import DTO.Board;
 import DTO.Photographer;
 import DTO.Reserv;
 
@@ -87,19 +86,43 @@ public class PhotoDAO {
 
 	}
 	
-	// 예약페이지 적어내기
-		public void insertBoard(Reserv b) throws Exception {
+	// 예약페이지 적어내기 (실행)
+		public void reservwritePage(Reserv r) throws Exception {
 			Connection conn = open();
 
-			String sql = "insert into reserv(reserv_id, m_name, m_number, concept) values(r_id_seq.nextval, ?, ?, ?)";
+			String sql = "insert into reserv(reserv_id, m_name, concept) values(r_id_seq.nextval, ?, ?)";
+			
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 
 			try (conn; pstmt) {
-				pstmt.setString(1, b.getM_name());
-				pstmt.setString(2, b.getM_number());
-				pstmt.setString(3, b.getConcept());
+				pstmt.setInt(1, r.getReserv_id());
+				pstmt.setString(2, r.getM_name());
+				pstmt.setString(3, r.getConcept());
 				pstmt.executeUpdate();
 			}
 		}
+	
 
+		// 예약목록(내용) 가져오기
+		public Reserv getReservList(int reserv_id) throws Exception {
+			Connection conn = open();
+			Reserv r = new Reserv();
+			
+			String sql = "select reserv_id, m_name, concept from reserv order by reserv_id";
+			//String sql = "select reserv_id, m_name, concept from reserv where p_id=1 order by reserv_id";
+
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reserv_id);
+			ResultSet rs = pstmt.executeQuery();
+
+			try (conn; pstmt; rs) {
+				while (rs.next()) {
+					r.setReserv_id(rs.getInt(1));
+					r.setM_name(rs.getString(2));
+					r.setConcept(rs.getString(3));
+				}
+				return r;
+			}
+		}
+		
 }

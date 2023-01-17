@@ -98,22 +98,17 @@ CREATE TABLE reserv (
 reserv_id NUMBER PRIMARY KEY,
 m_name VARCHAR2(16) NOT NULL,
 concept VARCHAR2(100) NOT NULL,
+p_id NUMBER,
 
 CONSTRAINT FK_P_ID FOREIGN KEY(p_id) REFERENCES photographer(p_id)
 );
 
-INSERT INTO RESERV VALUES (r_id_seq.nextval, '±è¸ðµ¨', '010-1234-1111', 
-TO_DATE('2022-12-29 10:00', 'YYYY-MM-DD HH24:MI'), 'Ä«ÆäÄÁ¼Á');
-INSERT INTO RESERV VALUES (r_id_seq.nextval, 2, 'ÀÌ¸ðµ¨', '010-1234-2222', 
-TO_DATE('2022-12-29 12:00', 'YYYY-MM-DD HH24:MI'), '¾ß¿ÜÄÁ¼Á');
-INSERT INTO RESERV VALUES (r_id_seq.nextval, 1, '°­¸ðµ¨', '010-1234-3333', 
-TO_DATE('2022-12-29 14:00', 'YYYY-MM-DD HH24:MI'), 'ÀÏ»óÄÁ¼Á');
-INSERT INTO RESERV VALUES (r_id_seq.nextval, 3, 'ÃÖ¸ðµ¨', '010-1234-4444', 
-TO_DATE('2022-12-29 16:00', 'YYYY-MM-DD HH24:MI'), '¿þµùÄÁ¼Á');
-INSERT INTO RESERV VALUES (r_id_seq.nextval, 4, '¹Ú¸ðµ¨', '010-1234-5555', 
-TO_DATE('2022-12-29 16:00', 'YYYY-MM-DD HH24:MI'), 'À¯¾ÆÄÁ¼Á');
-INSERT INTO RESERV VALUES (r_id_seq.nextval, 2, '¿À¸ðµ¨', '010-1234-6666', 
-TO_DATE('2022-12-29 18:00', 'YYYY-MM-DD HH24:MI'), '½ºÆ®¸´ÄÁ¼Á');
+INSERT INTO RESERV VALUES (r_id_seq.nextval, '±è¸ðµ¨', 'Ä«ÆäÄÁ¼Á', 1);
+INSERT INTO RESERV VALUES (r_id_seq.nextval, 'ÀÌ¸ðµ¨', '¾ß¿ÜÄÁ¼Á', 2);
+INSERT INTO RESERV VALUES (r_id_seq.nextval, '°­¸ðµ¨', 'ÀÏ»óÄÁ¼Á', 3);
+INSERT INTO RESERV VALUES (r_id_seq.nextval, 'ÃÖ¸ðµ¨', '¿þµùÄÁ¼Á', 4);
+INSERT INTO RESERV VALUES (r_id_seq.nextval, '¹Ú¸ðµ¨', 'À¯¾ÆÄÁ¼Á', 1);
+INSERT INTO RESERV VALUES (r_id_seq.nextval, '¿À¸ðµ¨','½ºÆ®¸´ÄÁ¼Á', 2);
 
 --------------------------------------------------------------------------------
 
@@ -124,8 +119,8 @@ commit;
 
 --------------------------------------------------------------------------------
 
-
-
+select * from reserv where p_id=1;
+select reserv_id, m_name, concept from reserv where p_id=1 order by reserv_id;
 
 
 
