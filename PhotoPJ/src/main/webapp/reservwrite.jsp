@@ -16,7 +16,7 @@
 		<!--  <form action="/Photo/reserv?p_id=${photographer.p_id}" method="get">-->
 		<!-- <form action="/list" method="get"> -->
 		
-		<form name="frm" action="reservresult" method="get">
+		<form name="frm" action="reservresult?p_id=${photographer.p_id}&p_name=${photographer.p_name}" method="post">
 
 			<div>
 				<span>${photographer.p_name} 작가님 촬영 예약 페이지 입니다<br></span>
@@ -35,8 +35,10 @@
 			</div>
 			
 		<div class="bt_wrap">
-         	<a onclick="chkForm(); return false;" class="on">등록</a>
+         	<a  onclick="chkForm(); return false;" class="on">등록</a>
           	<a href="list">취소</a>
+         
+      
         </div>
 		</form>
 		

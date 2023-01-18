@@ -99,6 +99,7 @@ reserv_id NUMBER PRIMARY KEY,
 m_name VARCHAR2(16) NOT NULL,
 concept VARCHAR2(100) NOT NULL,
 p_id NUMBER,
+testdate VARCHAR2(100),
 
 CONSTRAINT FK_P_ID FOREIGN KEY(p_id) REFERENCES photographer(p_id)
 );
@@ -112,19 +113,73 @@ INSERT INTO RESERV VALUES (r_id_seq.nextval, '¿À¸ðµ¨','½ºÆ®¸´ÄÁ¼Á', 2);
 
 --------------------------------------------------------------------------------
 
+create table testdate (
+
+dateid number primary key,
+monDay varchar2(50),
+p_id number,
+
+CONSTRAINT FK_P_ID2 FOREIGN KEY(p_id) REFERENCES photographer(p_id)
+);
+
+drop table testdate;
+
+insert into testdate values(d_id_seq.nextval,'1¿ù 9ÀÏ','1');
+
+select * from testdate;
+
+--------------------------------------------------------------------------------
+select m1.reserv_id, m1.m_name, m1.concept, m2.p_name, m3.monDay
+
+from reserv m1
+left join photographer m2 
+
+on m2.p_id = m1.p_id and m2.p_name = 'È«±æµ¿'
+inner join testdate m3
+on  m2.p_id = m3.p_id order by reserv_id;
+
+select * from reserv m1 left join photographer m2 on m1.p_id = m2.p_id left join testdate m3 on m1.p_id = m3.p_id;
+
+select distinct * from
+(select m1.p_id as p_id, m1.reserv_id as reserv_id, m1.m_name, m1.concept, m2.p_name
+from reserv m1 
+left join photographer m2 
+on m1.p_id = m2.p_id) mm
+left join testdate m3
+on mm.p_id = m3.p_id
+order by mm.reserv_id;
+
+
+--------------------------------------------------------------------------------
+
+select m1.reserv_id, m1.m_name, m1.concept, m2.p_name, m3.monDay
+
+from reserv m1, photographer m2, testdate m3
+
+where m2.p_id = m1.p_id;
+
+and m2.p_name = 'È«±æµ¿'
+--------------------------------------------------------------------------------
+
 select * from photographer;
 select * from reserv;
+
+select m1.reserv_id, m1.m_name, m1.concept, m2.p_name 
+from reserv m1
+join photographer m2
+on m2.p_id = m1.p_id and m2.p_name = 'È«±æµ¿' order by reserv_id;
+
+select m1.reserv_id, m1.m_name, m1.concept, m2.p_name 
+from reserv m1, photographer m2
+where m2.p_id = m1.p_id;
 
 commit;
 
 --------------------------------------------------------------------------------
 
-select * from reserv where p_id=1;
-select reserv_id, m_name, concept from reserv where p_id=1 order by reserv_id;
 
-
-
-
+drop table testdate;
+drop table reserv;
 
 --------------------------------------------------------------------------------
 --½ÃÄö½º
@@ -147,7 +202,14 @@ CREATE SEQUENCE r_id_SEQ
        NOCACHE
        NOORDER;
 
-
+CREATE SEQUENCE d_id_SEQ
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
 
 
 

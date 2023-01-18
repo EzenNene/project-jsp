@@ -6,6 +6,7 @@ public class Reserv {
 	String m_name;
 	String concept;
 	int p_id;
+	String testdate;
 	
 	public int getReserv_id() {
 		return reserv_id;
@@ -30,6 +31,15 @@ public class Reserv {
 	}
 	public void setP_id(int p_id) {
 		this.p_id = p_id;
+	}
+	
+	
+	
+	public String getTestdate() {
+		return testdate;
+	}
+	public void setTestdate(String testdate) {
+		this.testdate = testdate;
 	}
 	
 }
