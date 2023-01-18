@@ -73,11 +73,11 @@ public class PhotoController extends HttpServlet {
 			site = getReservPage(request);
 			break;
 		case "/reservwrite":
-			site = getReservWritePage(request);
+			site = insertReserv(request);
 			break;
-//		case "/reservresult":
-//			site = getReservListPage(request);
-//			break;
+		case "/reservresult":
+			site = getReservListPage(request);
+			break;
 		}
 		
 		// POST 요청 처리후에는 리디렉션 방법으로 이동 할 수 있어야 함.
@@ -94,7 +94,10 @@ public class PhotoController extends HttpServlet {
 
 	}
 
+// 메소드 ===============================================================================	
+	
 	// 포토그래퍼 리스트 조회
+	
 	public String getListPage(HttpServletRequest request) {
 		List<Photographer> list;
 		try {
@@ -109,6 +112,7 @@ public class PhotoController extends HttpServlet {
 	}
 
 	// 포트폴리오 조회
+	
 	public String getPortfolioPage(HttpServletRequest request) {
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
 
@@ -124,71 +128,85 @@ public class PhotoController extends HttpServlet {
 	}
 
 	// 예약(달력)페이지
+	
 	public String getReservPage(HttpServletRequest request) {
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
 
 		try {
-			Photographer p = dao.getPortfolio(p_id);
+			Photographer p = dao.getReserv(p_id);
 			request.setAttribute("photographer", p);
-			request.setAttribute("test", p_id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			ctx.log("포토그래퍼 예약페이지 불러오는 과정에서 문제발생");
-			request.setAttribute("error", "포토그래퍼 예약페이지가 정상적으로 처리되지 않음");
+			ctx.log("달력페이지 불러오는 과정에서 문제발생");
+			request.setAttribute("error", "달력페이지가 정상적으로 처리되지 않음");
 		}
 		return "reserv.jsp";
 	}
 
-	// 예약 내용 적는 페이지
-	public String getReservWritePage(HttpServletRequest request) {
+	// 예약 내용(모델이름, 컨셉) 적는 페이지
+	
+	public String insertReserv(HttpServletRequest request) {
+		
+		Reserv r = new Reserv();
+		
+		r.setM_name(request.getParameter("m_name"));
+		r.setConcept(request.getParameter("concept"));
+		r.setP_id(Integer.parseInt(request.getParameter("p_id")));
 		
 		String date = request.getParameter("month");
 		date += "월 ";
 		date += request.getParameter("i");
 		date += "일";
-		System.out.println(date);
 		
-		int p_id = Integer.parseInt(request.getParameter("p_id"));
-		String m_name = request.getParameter("m_name");
-		String concept = request.getParameter("concept");
+		r.setTestdate(date);
 		
 		try {
-			Photographer p = dao.getPortfolio(p_id);
-			request.setAttribute("photographer", p);
-			dao.reservwritePage(m_name, concept, p_id, date);
-
+			dao.insertReserv(r);
 		} catch (Exception e) {
 			e.printStackTrace();
-			ctx.log("포토그래퍼 예약상세페이지 불러오는 과정에서 문제발생");
-			request.setAttribute("error", "포토그래퍼 예약상세페이지가 정상적으로 처리되지 않음");
+			ctx.log("예약추가 과정에서 문제발생");
+			try {
+				//get방식으로 넘겨줄때 한글 깨짐을 방지한다.
+				String encodeName = URLEncoder.encode("예약글이 정상적으로 등록되지 않았습니다!", "UTF-8");
+				return "redirect:/list?error=" + encodeName;
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return "reservwrite.jsp";
 
       
 	}
 
-//	// 예약글 리스트 조회
-//		public String getReservListPage(HttpServletRequest request) {
-//			
-//			List<Reserv> list;
-//			String name = request.getParameter("m_name");
+	// 예약목록 리스트 (내용) 조회
+	
+		public String getReservListPage(HttpServletRequest request) {
+			
+//			String m_name = request.getParameter("m_name");
 //			String concept = request.getParameter("concept");
 //			int p_id = Integer.parseInt(request.getParameter("p_id"));
-//			String PName = request.getParameter("p_name");
-//			try {
-//				dao.reservwritePage(m_name, concept, p_id, date);
-//				list = dao.getReservList(PName);
-//				request.setAttribute("reservList", list);
-//				request.setAttribute("testname", list.get(p_id).getP_name());
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				ctx.log("게시판 목록 생성 과정에서 문제 발생");
-//				//나중에 사용자 한테 에러메세지를 보여주기 위해 저장
-//				request.setAttribute("error", "게시판 목록이 정상적으로 처리되지 않았습니다!"); 
-//			}
+//			String p_name = request.getParameter("p_name");
 //			
-//			return "reservresult.jsp";
-//		}
+//			String date = request.getParameter("month");
+//			date += "월 ";
+//			date += request.getParameter("i");
+//			date += "일";
+//			System.out.println(date);
+			
+			List<Reserv> list;
+			
+			try {
+				list = dao.getReservList();
+				request.setAttribute("reservList", list);
+			} catch (Exception e) {
+				e.printStackTrace();
+				ctx.log("예약 목록 생성 과정에서 문제 발생");
+				//나중에 사용자 한테 에러메세지를 보여주기 위해 저장
+				request.setAttribute("error", "에약 목록이 정상적으로 처리되지 않았습니다!"); 
+			}
+			
+			return "resultreserv.jsp";
+		}
 	
 	/*
 	public String getReservListPage(HttpServletRequest request) {

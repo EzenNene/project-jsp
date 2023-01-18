@@ -34,8 +34,8 @@
 			<tbody>
 				<c:forEach var="reserv" items="${reservList}" varStatus="status">
 					<tr>						
-						<td>${reserv.reservId}</td>
-						<td>${reserv.mName}</td>
+						<td>${reserv.reserv_id}</td>
+						<td>${reserv.m_name}</td>
 						<td>${reserv.concept}</td>
 
 						<%-- <td>${reserv.reserv_id}</td> --%>

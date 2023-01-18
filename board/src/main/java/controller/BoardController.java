@@ -97,6 +97,7 @@ public class BoardController extends HttpServlet {
 	
 	// 게시글 리스트 조회
 	public String getList(HttpServletRequest request) {
+		
 		List<Board> list;
 		
 		try {
@@ -130,18 +131,18 @@ public class BoardController extends HttpServlet {
 	}
 	
 	// 게시글 작성
+	
 	public String insertBoard(HttpServletRequest request) {
 		
 		Board b = new Board();
 		
-		/*
 		b.setUser_id(request.getParameter("user_id"));
 		b.setTitle(request.getParameter("title"));
 		b.setContent(request.getParameter("content")); 
-	    */
+	    
 		
 		try {
-			BeanUtils.populate(b, request.getParameterMap());
+//			BeanUtils.populate(b, request.getParameterMap());
 			dao.insertBoard(b);
 		} catch (Exception e) {
 			e.printStackTrace();
