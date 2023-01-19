@@ -63,16 +63,16 @@ public class PhotoDAO {
 
 	// 포토그래퍼 포트폴리오 조회
 
-	public Photographer getPortfolio(int p_id) throws Exception {
+	public Photographer getView(int p_id) throws Exception {
 		Connection conn = open();
 		Photographer p = new Photographer();
 
 		String sql = "SELECT p_id, p_name, p_img, p_intro, p_phone, p_email, p_loc FROM photographer where p_id = ?";
 		
-		PreparedStatement pstmt = conn.prepareStatement(sql); // 쿼리문 등록
-		ResultSet rs = pstmt.executeQuery(); // 쿼리문 실행
-	
+		PreparedStatement pstmt = conn.prepareStatement(sql); // 쿼리문 등록 -> 컴파일
 		pstmt.setInt(1, p_id); // 쿼리문에 값 넣어줌
+		ResultSet rs = pstmt.executeQuery(); // 쿼리문 실행 -> 데이터 베이스 결과 저장
+	
 		
 		try (conn; pstmt; rs) {
 			while (rs.next()) {
@@ -93,6 +93,7 @@ public class PhotoDAO {
 	//  예약(달력)페이지
 	
 		public Photographer getReserv(int p_id) throws Exception {
+			
 			Connection conn = open();
 			Photographer p = new Photographer();
 

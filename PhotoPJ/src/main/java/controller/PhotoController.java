@@ -64,10 +64,10 @@ public class PhotoController extends HttpServlet {
 		
 		switch (command) {
 		case "/list":
-			site = getListPage(request);
+			site = getList(request);
 			break;
 		case "/portfolio":
-			site = getPortfolioPage(request);
+			site = getView(request);
 			break;
 		case "/reserv":
 			site = getReservPage(request);
@@ -76,7 +76,7 @@ public class PhotoController extends HttpServlet {
 			site = insertReserv(request);
 			break;
 		case "/reservresult":
-			site = getReservListPage(request);
+			site = getReservList(request);
 			break;
 		}
 		
@@ -98,8 +98,10 @@ public class PhotoController extends HttpServlet {
 	
 	// 포토그래퍼 리스트 조회
 	
-	public String getListPage(HttpServletRequest request) {
+	public String getList(HttpServletRequest request) {
+		
 		List<Photographer> list;
+		
 		try {
 			list = dao.getList();
 			request.setAttribute("photographerList", list);
@@ -113,11 +115,11 @@ public class PhotoController extends HttpServlet {
 
 	// 포트폴리오 조회
 	
-	public String getPortfolioPage(HttpServletRequest request) {
+	public String getView(HttpServletRequest request) {
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
 
 		try {
-			Photographer p = dao.getPortfolio(p_id);
+			Photographer p = dao.getView(p_id);
 			request.setAttribute("photographer", p);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -180,7 +182,7 @@ public class PhotoController extends HttpServlet {
 
 	// 예약목록 리스트 (내용) 조회
 	
-		public String getReservListPage(HttpServletRequest request) {
+		public String getReservList(HttpServletRequest request) {
 			
 //			String m_name = request.getParameter("m_name");
 //			String concept = request.getParameter("concept");
@@ -206,27 +208,7 @@ public class PhotoController extends HttpServlet {
 			}
 			
 			return "resultreserv.jsp";
-		}
-	
-	/*
-	public String getReservListPage(HttpServletRequest request) {
-		int p_id = Integer.parseInt(request.getParameter("p_id"));
-		String m_name = request.getParameter("m_name");
-		String concept = request.getParameter("concept");
-		try {
-			Reserv r = dao.getReservList(p_id);
-			request.setAttribute("reserv", r);
-		} catch (Exception e) {
-			e.printStackTrace();
-			ctx.log("예약 리스트 불러오는 과정에서 문제발생");
-			request.setAttribute("error", "예약 리스트가 정상적으로 처리되지 않음");
-		}
-		return "reservresult.jsp";
-	}
-	*/
-
-	
-	
+		}	
 	
 	
 }

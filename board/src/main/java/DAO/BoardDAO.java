@@ -70,6 +70,7 @@ public class BoardDAO {
 		Board b = new Board();
 		
 		String sql = "select board_no, title, user_id, to_char(reg_date, 'yyyy.mm.dd') reg_date, views, content from board where board_no = ?";
+		
 		PreparedStatement pstmt = conn.prepareStatement(sql);  //쿼리문 등록 -> 컴파일
 		pstmt.setInt(1, board_no);
 		ResultSet rs = pstmt.executeQuery(); //쿼리문 실행 -> 데이터 베이스 결과 저장
