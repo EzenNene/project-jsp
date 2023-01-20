@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 
 import DAO.PhotoDAO;
-import DTO.JoinColumn;
 import DTO.Photographer;
 import DTO.Reserv;
 
@@ -70,10 +69,13 @@ public class PhotoController extends HttpServlet {
 			site = getView(request);
 			break;
 		case "/reserv":
-			site = getReservPage(request);
+			site = getCalendarPage(request); // 달력
+			break;
+		case "/reservwritepage":
+			site = getReservWritePage(request); // 달력 날짜 들어가서 예약내용 입력 페이지
 			break;
 		case "/reservwrite":
-			site = insertReserv(request);
+			site = insertReserv(request); // 예약내용 입력한거 전송기능
 			break;
 		case "/reservresult":
 			site = getReservList(request);
@@ -131,7 +133,7 @@ public class PhotoController extends HttpServlet {
 
 	// 예약(달력)페이지
 	
-	public String getReservPage(HttpServletRequest request) {
+	public String getCalendarPage(HttpServletRequest request) {
 		int p_id = Integer.parseInt(request.getParameter("p_id"));
 
 		try {
@@ -144,8 +146,24 @@ public class PhotoController extends HttpServlet {
 		}
 		return "reserv.jsp";
 	}
+	
+	// 예약(달력)페이지
+	
+	public String getReservWritePage(HttpServletRequest request) {
+		int p_id = Integer.parseInt(request.getParameter("p_id"));
 
-	// 예약 내용(모델이름, 컨셉) 적는 페이지
+		try {
+			Photographer p = dao.getReserv(p_id);
+			request.setAttribute("photographer", p);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ctx.log("달력페이지 불러오는 과정에서 문제발생");
+			request.setAttribute("error", "달력페이지가 정상적으로 처리되지 않음");
+		}
+		return "reservwrite.jsp";
+	}
+
+	// 예약 내용(모델이름, 컨셉) 적는 페이지 (기능)
 	
 	public String insertReserv(HttpServletRequest request) {
 		
@@ -170,14 +188,12 @@ public class PhotoController extends HttpServlet {
 			try {
 				//get방식으로 넘겨줄때 한글 깨짐을 방지한다.
 				String encodeName = URLEncoder.encode("예약글이 정상적으로 등록되지 않았습니다!", "UTF-8");
-				return "redirect:/list?error=" + encodeName;
+				return "redirect:/reserv?error=" + encodeName;
 			} catch (UnsupportedEncodingException e1) {
 				e1.printStackTrace();
 			}
 		}
-		return "reservwrite.jsp";
-
-      
+		return "redirect:/reserv";
 	}
 
 	// 예약목록 리스트 (내용) 조회

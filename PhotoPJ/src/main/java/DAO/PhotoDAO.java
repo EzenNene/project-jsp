@@ -90,7 +90,7 @@ public class PhotoDAO {
 
 	}
 	
-	//  예약(달력)페이지
+	//  달력페이지
 	
 		public Photographer getReserv(int p_id) throws Exception {
 			
@@ -119,9 +119,39 @@ public class PhotoDAO {
 			}
 
 		}
+		
+	//  예약 적는 페이지
+		
+			public Photographer getReservWritePage(int p_id) throws Exception {
+				
+				Connection conn = open();
+				Photographer p = new Photographer();
+
+				String sql = "SELECT p_id, p_name, p_img, p_intro, p_phone, p_email, p_loc FROM photographer where p_id = ?";
+				
+				PreparedStatement pstmt = conn.prepareStatement(sql); // 쿼리문 등록
+				ResultSet rs = pstmt.executeQuery(); // 쿼리문 실행
+			
+				pstmt.setInt(1, p_id); // 쿼리문에 값 넣어줌
+				
+				try (conn; pstmt; rs) {
+					while (rs.next()) {
+						p.setP_id(rs.getInt(1));
+						p.setP_name(rs.getString(2));
+						p.setP_img(rs.getString(3));
+						p.setP_intro(rs.getString(4));
+						p.setP_phone(rs.getString(5));
+						p.setP_email(rs.getString(6));
+						p.setP_loc(rs.getString(7));
+
+					}
+					return p;
+				}
+
+			}
 	
 	
-		// 예약 내용(모델이름, 컨셉) 적는 페이지
+		// 예약 내용(모델이름, 컨셉) 적는 페이지 (등록기능)
 		public void insertReserv(Reserv r) throws Exception {
 			
 			Connection conn = open();

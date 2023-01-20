@@ -145,6 +145,7 @@ public class BoardDAO {
 	
 	//게시판 글 등록
 	public void insertBoard(Board b) throws Exception {
+		
 		Connection conn = open();
 		
 		String sql = "insert into board(board_no, user_id, title, content, reg_date, views)";
